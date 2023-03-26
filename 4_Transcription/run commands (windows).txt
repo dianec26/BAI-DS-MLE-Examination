@@ -1,0 +1,5 @@
+activating venv: 
+venv\Scripts\activate.bat
+
+how to connect to ssh instance:
+ssh -i C:\Users\Kat\Desktop\work\boom_ai\BAI-DS-MLE-Examination\4_Transcription\voice_transcriber_key.pem ubuntu@ec2-3-26-147-78.ap-southeast-2.compute.amazonaws.com

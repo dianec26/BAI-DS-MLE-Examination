@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Transcription</title>
+  </head>
+  <body>
+    <h1>Transcribe Audio With FastAPI</h1>
+    <!-- 
+        the script below ask for access for the users's 
+        mic and woul return a media string
+        -->
+    <script>
+        //return a promise media stream
+        navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+            // console.log(stream)
+            const mediaRecorder = new MediaRecorder(stream,{mimeType:'audio/webm'})
+            // connect directly with deep gram authentication endpoint
+            const socket = new WebSocket('ws://localhost:8000/listen')
+
+            socket.onopen = () => {
+            // add event listener 
+            // status
+                document.querySelector('#status').textContent = 'Connected'
+                console.log({
+                    event: 'onopen'
+                })
+                // we send the data to the event
+                mediaRecorder.addEventListener('dataavailable', async (event) => {
+                    if (event.data.size > 0 && socket.readyState == 1) {
+                        socket.send(event.data)
+                    }
+                })
+                mediaRecorder.start(250)
+            }
+
+            //listen from deepgram to us  on message enevent
+            socket.onmessage = (message) => {
+                const received = message.data
+                if (received) {
+                    console.log(received)
+                    document.querySelector('#transcript').textContent += ' ' + received
+                }
+            }
+
+            socket.onclose = () => {
+                console.log({
+                    event: 'onclose'
+                })
+            }
+
+            socket.onerror = (error) => {
+                console.log({
+                    event: 'onerror',
+                    error
+                })
+            }
+
+        })
+      
+        
+        
+
+</script>
+        <!--
+            more info about scripts here
+            https://blog.deepgram.com/live-transcription-mic-browser/
+        -->
+    <p id="status">Connection status will go here</p>
+    <p id="transcript"></p>
+    
+  </body>
+</html>
