@@ -30,12 +30,13 @@
     - essentials.py: contains 2 classes
         - TextEmbedder: used for getting and setting embbeding of the text
         - QAMaster: Using the text embedding
-    - main.py
+    - main.py: Fastapi framework to set the context and get the answers
+        
 - caveat: did not test this because there was an issue with docker
 
 
 ## Transcription:
-- 
+- ran on 52.65.140.11 in EC2 but it doesn't have media connection since it's not running on https
 - **important note**: 
     1. create a 4_Transcription/.env file containing the api key (specifically in this format) DEEPGRAM_API_KEY = "insert key here"
-    2. pip
+    2. pip3 install requirements.txt

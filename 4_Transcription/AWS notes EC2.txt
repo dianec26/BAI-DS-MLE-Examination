@@ -1,14 +1,14 @@
 git clone everything first
 
 Commands:
-$ sudo apt-get update
+$ sudo apt-get update -y
 $ sudo apt install python3-pip
+$ sudo apt install nginx
 $ pip3 install -r requirements.txt
 
-$ sudo apt install nginx
 
-$ cd /etc/nginx/sites-enabled/
-$ sudo vim VT_nginx
+$ sudo vim /etc/nginx/sites-enabled/fastapi_nginx
+$ 
 
 server {    
    listen 80;    
@@ -22,3 +22,6 @@ $ sudo service nginx restart
 $ cd to the git clone file
 $ python3 -m uvicorn main:app
 $ cd to file: cd ~/BAI-DS-MLE-Examination/4_Transcription/
+
+#removing file:
+rm -R  ~/BAI-DS-MLE-Examination/

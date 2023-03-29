@@ -1,7 +1,10 @@
 FROM python:3.8.12-slim-buster
 
-# Install wget and required pip libraries
-RUN apt-get update &&\
+# That's correct. By default, Ubuntu installs recommended but not suggested packages. With --no-install-recommends, only the main dependencies (packages in the Depends field) are installed.
+# &&\ means multiline 
+# apt-get update: used to update the package index files on the system
+# apt-get install force these packages to install
+RUN apt-get update &&\ 
     apt-get install -y --no-install-recommends wget &&\
     rm -rf /var/lib/apt/lists/* &&\
     pip install --no-cache-dir transformers[torch] uvicorn fastapi
